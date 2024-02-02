@@ -6,6 +6,12 @@ from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 import json
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 
 def get_memory(): # 대화 기록을 저장하는 메모리
     memory = ConversationBufferMemory(memory_key="chat_history", ai_prefix="bot", human_prefix="you")
@@ -37,7 +43,7 @@ def get_current_memory_chain(): # 현재 대화 기록을 가져오는 코드
     return current_memory_chain
 
 def get_chatgpt_chain(): # GPT-4를 사용하여 대화를 생성하는 코드
-    llm = ChatOpenAI(model_name="gpt-4", openai_api_key=os.environ["OPENAI_API_KEY"])
+    llm = ChatOpenAI(model_name="gpt-4", openai_api_key=OPENAI_API_KEY)
     
     template = """ 너는 'User'가 말을 했을 때, 'bot'이 상황에 맞춰서 대답하는 것처럼 대화를 해 줘.
     'bot'은 대체적으로 이런 인물이야. {intro}
@@ -69,9 +75,12 @@ def get_chatgpt_chain(): # GPT-4를 사용하여 대화를 생성하는 코드
     return chatgpt_chain
 
 class Character:
-    def __init__(self, file_path, user, relation, situation) -> None:
+    def __init__(self, id) -> None:
+        
+        data = self.id(id)
+        
         self.memory = get_memory()
-        self.search_chain = get_search_chain(file_path, user, relation, situation)
+        self.search_chain = get_search_chain(data['file_path'], data['user'], data['relation'], data['situation'])
         self.current_memory_chain = get_current_memory_chain()
         self.chatgpt_chain = get_chatgpt_chain()
         
@@ -82,7 +91,23 @@ class Character:
             output_variables=["received_chat"],
             verbose=True
         )
+        
+    def id(self, id):
+        with open("chatbot/data/situation.json", "r", encoding="utf8") as json_file:
+            json_data = json_file.read()
+        data = json.loads(json_data)
+        
+        file_path = "chatbot/data/" +  data[id]["bot"] + ".json"
+        user = data[id]["user"]
+        relation = data[id]["relation"]
+        situation = data[id]["sit_prompt"]
+        
+        return {"file_path": file_path, "user": user, "relation": relation, "situation": situation}
     
     def receive_chat(self, chat):
         review = self.overall_chain.invoke({"chat": chat})
         return review['received_chat']
+
+if __name__ == "__main__":
+    char = Character("data/elsa.json", "anna", "relation", "situation")
+    print(char.id(0))
