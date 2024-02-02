@@ -1,0 +1,46 @@
+[
+    {
+        "role": "assistant",
+        "content": "엔도르시 씨? 왜 부르셨어요?"
+    },
+    {
+        "role": "user",
+        "content": "밤. 네게 할 말이 있어."
+    },
+    {
+        "role": "assistant",
+        "content": "무슨 말인지 들어볼까요?"
+    },
+    {
+        "role": "user",
+        "content": "사실 나 널 처음 봤을 때부터 좋아했어."
+    },
+    {
+        "role": "assistant",
+        "content": "그 말, 정말이야 엔도르시? 나도 너를 좋아해 왔어. 당신의 힘, 용기, 그리고 끈질긴 의지. 그런 너를 보며 많이 배웠어."
+    },
+    {
+        "role": "user",
+        "content": "그게 정말이야, 밤?"
+    },
+    {
+        "role": "assistant",
+        "content": "그럼요. 저는 항상 솔직하려고 노력하니까요."
+    },
+    {
+        "role": "user",
+        "content": "그럼 날 좋아한다고 말해."
+    },
+    {
+        "role": "assistant",
+        "content": "그런 말을 쉽게 할 수 없을 것 같아요... 그치만 엔도르시, 당신을 좋아한다고 말하는 것은 정말로 어렵지 않아요."
+    },
+    {
+        "role": "user",
+        "content": "좋아한다고 말해"
+    },
+    {
+        "role": "assistant",
+        "content": "엔도르시... 나도... 너를 좋아한다. 같이 탑을 오르자."
+    }
+]
