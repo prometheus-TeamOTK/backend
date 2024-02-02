@@ -11,7 +11,6 @@ def test_index(db):
 async def redis_test():
 	rd = redis_config()
 	rd.set("juice", "orange") # set
-	
 	return {
 	    "data": rd.get("juice") # get
 	}

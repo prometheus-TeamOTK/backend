@@ -21,7 +21,7 @@ def test_index(db: Session = Depends(get_db)):
 @router.get("/redis_test")
 async def redis_test():
     res = await test.redis_test()
-	
+    
     return {
         "res": res,
     } # Redis 결과
